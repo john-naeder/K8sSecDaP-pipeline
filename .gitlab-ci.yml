@@ -1,0 +1,15 @@
+include:
+  - project: 'john-naeder/ci-templates'
+    ref: main
+    file: '/security.gitlab-ci.yml'
+  # Until that project exists on your GitLab, vendor the file instead:
+  #   - local: '.gitlab/ci/security.yml'
+
+stages:
+  - scan
+  - report
+
+variables:
+  # C++17. Semgrep's C/C++ coverage is thinner than its Go or C# coverage, so
+  # treat sast:semgrep here as a smoke test rather than as the whole story.
+  SECURITY_FAIL_ON: ''
