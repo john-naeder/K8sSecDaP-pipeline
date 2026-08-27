@@ -268,7 +268,11 @@ int main(int argc, char* argv[]) {
         config_path,
         "../" + config_path,           // from build/
         "../../" + config_path,        // from build/subdir/
-        std::string("/opt/pipeline/") + config_path,
+        // Không hardcode đường dẫn máy của một người nữa. Ai cần chỉ định
+        // vị trí khác thì đặt biến môi trường.
+        (std::getenv("PIPELINE_CONFIG_DIR")
+             ? std::string(std::getenv("PIPELINE_CONFIG_DIR")) + "/" + config_path
+             : std::string()),
     };
 
     std::string resolved;
